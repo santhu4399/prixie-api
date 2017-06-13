@@ -12,7 +12,6 @@ app.get('/',function(req,res){
 });
 
 app.get('/interview_schedules',function(req, res){
-
     MongoClient.connect(mongourl,function(err,db){
           var collection = db.collection("today_walkins");
           collection.find({}).toArray(function(err,data){
@@ -27,7 +26,6 @@ app.get('/interview_schedules',function(req, res){
 
 
 app.get('/tutorials_list',function(req, res){
-
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
           collection.find({},{"title":1,"_id":0}).toArray(function(err,data){
@@ -53,19 +51,6 @@ app.get('/tutorial_urls/:title',function(req, res){
           });
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get('/consultancy',function(req, res){
   var connection = mysql.createConnection({
