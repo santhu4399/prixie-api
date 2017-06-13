@@ -8,7 +8,7 @@ var mongosandboxurl = "mongodb://prixieapi:prixie1234@ds145359.mlab.com:45359/pr
 app.set('port',process.env.PORT||3000)
 
 app.get('/',function(req,res){
-  res.send('working');
+  res.send('prixieapi is working');
 });
 
 app.get('/interview_schedules',function(req, res){
