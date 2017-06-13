@@ -1,8 +1,10 @@
 var express =require("express");
 var mysql=require("mysql");
+var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
 var app = express();
 var mongourl = "mongodb://localhost:27017/walkins";
+var mongosandboxurl = "mongodb://prixieapi:prixie1234@ds145359.mlab.com:45359/prixie";
 app.set('port',process.env.PORT||3000)
 
 app.get('/',function(req,res){
@@ -21,6 +23,50 @@ app.get('/interview_schedules',function(req, res){
           });
     });
 });
+
+
+
+app.get('/tutorials_list',function(req, res){
+
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("tutorials");
+          collection.find({},{"title":1,"_id":0}).toArray(function(err,data){
+              if(err) throw err;
+              console.log(data);
+              db.close();
+              res.send(data);
+          });
+    });
+});
+
+
+app.get('/tutorial_urls/:title',function(req, res){
+
+    console.log(req.params.title);
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("tutorials");
+          collection.findOne({"title":req.params.title},{"urls":1,"_id":0},function(err,data){
+              if(err) throw err;
+              console.log(data);
+              db.close();
+              res.send(data);
+          });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/consultancy',function(req, res){
   var connection = mysql.createConnection({
     host     : 'localhost',
