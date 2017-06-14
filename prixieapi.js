@@ -5,6 +5,12 @@ var MongoClient = require("mongodb").MongoClient;
 var app = express();
 var mongourl = "mongodb://localhost:27017/walkins";
 var mongosandboxurl = "mongodb://prixieapi:prixie1234@ds145359.mlab.com:45359/prixie";
+var connection = mysql.createConnection({
+    host     : 'lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user     : 'jvipnbry05r7jsdd',
+    password : 'g25rk5i0wb7ktspb',
+    database : 'oxrygs2koq5krweg'
+  });
 app.set('port',process.env.PORT||3000)
 
 app.get('/',function(req,res){
@@ -39,7 +45,6 @@ app.get('/tutorials_list',function(req, res){
 
 
 app.get('/tutorial_urls/:title',function(req, res){
-
     console.log(req.params.title);
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
@@ -53,12 +58,6 @@ app.get('/tutorial_urls/:title',function(req, res){
 });
 
 app.get('/consultancy',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
 connection.connect();
 connection.query('select * from consultancy', function (error, results, fields) {
   if (error) throw error;
@@ -70,12 +69,6 @@ connection.query('select * from consultancy', function (error, results, fields) 
 });
 
 app.get('/written_test',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='WRITTEN TEST'", function (error, results, fields) {
   if (error) throw error;
@@ -87,12 +80,6 @@ app.get('/written_test',function(req, res){
 });
 
 app.get('/technical_test',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='TECHNICAL'", function (error, results, fields) {
   if (error) throw error;
@@ -104,12 +91,6 @@ app.get('/technical_test',function(req, res){
 });
 
 app.get('/group_discussion',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='GD'", function (error, results, fields) {
   if (error) throw error;
@@ -120,12 +101,6 @@ app.get('/group_discussion',function(req, res){
 });
 });
 app.get('/vercent_round',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='VERCENT ROUND'", function (error, results, fields) {
   if (error) throw error;
@@ -138,12 +113,6 @@ app.get('/vercent_round',function(req, res){
 
 
 app.get('/jam',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='JAM'", function (error, results, fields) {
   if (error) throw error;
@@ -155,12 +124,6 @@ app.get('/jam',function(req, res){
 });
 
 app.get('/system_programming',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='SYSTEM PROGRAMMING'", function (error, results, fields) {
   if (error) throw error;
@@ -172,12 +135,6 @@ app.get('/system_programming',function(req, res){
 });
 
 app.get('/typing_test',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='TYPING TEST'", function (error, results, fields) {
   if (error) throw error;
@@ -189,12 +146,6 @@ app.get('/typing_test',function(req, res){
 });
 
 app.get('/hr',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='HR(OPERATION)'", function (error, results, fields) {
   if (error) throw error;
@@ -206,12 +157,6 @@ app.get('/hr',function(req, res){
 });
 
 app.get('/telephonic',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select round_discription from rounds where round_name='TELEPHONIC ROUND'", function (error, results, fields) {
   if (error) throw error;
@@ -252,12 +197,6 @@ app.get('/salary',function(req, res){
 
 
 app.get('/payroll_consultencies',function(req, res){
-  var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'prixie'
-  });
   connection.connect();
   connection.query("select address from consultancy where consultancy_type='Payroll'", function (error, results, fields) {
   if (error) throw error;
