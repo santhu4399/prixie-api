@@ -18,14 +18,14 @@ app.get('/',function(req,res){
   res.send('prixieapi is working');
 });
 
-app.get('/interview_schedules',function(req, res){
+app.get('/interview_schedules/:from/:to',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("today_walkins");
           collection.find({},{"company":1,"website":1}).toArray(function(err,data){
               if(err) throw err;
               console.log(data);
               db.close();
-              res.send(data);
+              res.send(data.slice(req.params.from,req.params.to));
           });
     });
 });
