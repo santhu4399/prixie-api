@@ -11,6 +11,7 @@ var connection = mysql.createConnection({
     password : 'g25rk5i0wb7ktspb',
     database : 'oxrygs2koq5krweg'
   });
+
 app.set('port',process.env.PORT||3000)
 
 app.get('/',function(req,res){
@@ -20,7 +21,7 @@ app.get('/',function(req,res){
 app.get('/interview_schedules',function(req, res){
     MongoClient.connect(mongourl,function(err,db){
           var collection = db.collection("today_walkins");
-          collection.find({}).toArray(function(err,data){
+          collection.find({},{"company":1,"website":1}toArray(function(err,data){
               if(err) throw err;
               console.log(data);
               db.close();
@@ -198,9 +199,8 @@ app.get('/salary',function(req, res){
 
 app.get('/payroll_consultencies',function(req, res){
   connection.connect();
-  connection.query("select address from consultancy where consultancy_type='Payroll'", function (error, results, fields) {
+  connection.query("select address from consultancy where consultency_type='Payroll'", function (error, results, fields) {
   if (error) throw error;
-
   console.log(results);
   var result = JSON.stringify(results);
   connection.end();
