@@ -31,11 +31,23 @@ app.get('/interview_schedules/:from/:to',function(req, res){
 });
 
 
-
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
           collection.find({},{"title":1,"urls":1,"_id":0}).toArray(function(err,data){
+              if(err) throw err;
+              console.log(data);
+              db.close();
+              res.send(data);
+          });
+    });
+});
+
+
+app.get('/interview_schedule',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("today_walkins");
+          collection.find({},{"Company_name":1,"Domain":1,"Technology":1,"Experience":1,"interview_date":1,"location":1,"_id":0}).toArray(function(err,data){
               if(err) throw err;
               console.log(data);
               db.close();
