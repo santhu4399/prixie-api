@@ -35,7 +35,7 @@ app.get('/interview_schedules/:from/:to',function(req, res){
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
-          collection.find({},{"title":1,"_id":0}).toArray(function(err,data){
+          collection.find({},{"title":1,"urls":1,"_id":0}).toArray(function(err,data){
               if(err) throw err;
               console.log(data);
               db.close();
