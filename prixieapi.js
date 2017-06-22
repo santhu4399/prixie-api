@@ -67,7 +67,7 @@ app.get('/interview_schedule/:index',function(req, res){
               if(err) throw err;
               console.log(parseInt(req.params.index)+1);
               db.close();
-              res.send(data[req.params.index+1]);
+              res.send(data[parseInt(req.params.index)+1]);
           });
     });
 });
