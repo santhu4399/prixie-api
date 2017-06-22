@@ -65,7 +65,7 @@ app.get('/interview_schedule/:index',function(req, res){
           var collection = db.collection("interview_schedule");
           collection.find({},{"Company_name":1,"Domain":1,"Technology":1,"Experience":1,"interview_date":1,"location":1,"_id":0}).toArray(function(err,data){
               if(err) throw err;
-              console.log(data[req.params.index+1]);
+              console.log(req.params.index+1);
               db.close();
               res.send(data[req.params.index+1]);
           });
