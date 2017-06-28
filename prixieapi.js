@@ -75,7 +75,7 @@ app.get('/interview_schedule/:index',function(req, res){
 app.get('/walkins/:jobrole',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
-          collection.find({Job-Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
               if(err) throw err;
               console.log(parseInt(req.params.index)+1);
               db.close();
@@ -87,7 +87,7 @@ app.get('/walkins/:jobrole',function(req, res){
 app.get('/walkins/:jobrole/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
-          collection.find({Job-Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
               if(err) throw err;
               db.close();
               res.send(data);
