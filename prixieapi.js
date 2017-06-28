@@ -72,14 +72,28 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 
+app.get('/walkins/:jobrole',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("walkins");
+          collection.find({Job-Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+              if(err) throw err;
+              console.log(parseInt(req.params.index)+1);
+              db.close();
+              res.send(data[parseInt(req.params.index)+1]);
+          });
+    });
+});
 
-
-
-
-
-
-
-
+app.get('/walkins/:jobrole/',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("walkins");
+          collection.find({Job-Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+              if(err) throw err;
+              db.close();
+              res.send(data);
+          });
+    });
+});
 
 
 app.get('/tutorial_urls/:title',function(req, res){
