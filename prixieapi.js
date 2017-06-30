@@ -112,7 +112,7 @@ app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
       MongoClient.connect(mongosandboxurl,function(err,db){
             var collection = db.collection("walkins");
             //console.log(parseInt(req.params.minExperience));
-            collection.find("Experience.min":{$gte:req.params.minExperience},"Experience.max":{$lte:req.params.maxExperience},{"_id":0}).toArray(function(err,data){
+            collection.find("Experience.max":{$lte:req.params.maxExperience},{"_id":0}).toArray(function(err,data){
                 if(err) throw err;
                 db.close();
                 res.send(data);
