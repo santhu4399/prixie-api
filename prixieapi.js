@@ -72,7 +72,7 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 
-app.get('/walkins/:jobrole',function(req, res){
+/*app.get('/get_walkins_by_jobrole/:jobrole',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
           collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
@@ -83,8 +83,9 @@ app.get('/walkins/:jobrole',function(req, res){
           });
     });
 });
+*/
 
-app.get('/walkins/:jobrole/',function(req, res){
+app.get('/get_walkins_by_jobrole/:jobrole/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
           collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
@@ -94,6 +95,43 @@ app.get('/walkins/:jobrole/',function(req, res){
           });
     });
 });
+
+
+app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("walkins");
+          collection.find({Walk_In_date:req.params.Walk_In_date},{"_id":0}).toArray(function(err,data){
+              if(err) throw err;
+              db.close();
+              res.send(data);
+          });
+    });
+});
+
+
+
+  app.get('/get_walkins_by_Experience/:minExperience/:maxExperience',function(req, res){
+      MongoClient.connect(mongosandboxurl,function(err,db){
+            var collection = db.collection("walkins");
+            collection.find({Experience:{$element match:{experience.min:{$gte:minExperience},{experience.max:{$lte:maxExperience}}},{"_id":0}).toArray(function(err,data){
+                if(err) throw err;
+                db.close();
+                res.send(data);
+            });
+      });
+  });
+
+  app.get('/get_walkins_by_Eligibility/:Eligibility/',function(req, res){
+      MongoClient.connect(mongosandboxurl,function(err,db){
+            var collection = db.collection("walkins");
+            collection.find({Eligibility:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+                if(err) throw err;
+                db.close();
+                res.send(data);
+            });
+      });
+  });
+
 
 
 app.get('/tutorial_urls/:title',function(req, res){
