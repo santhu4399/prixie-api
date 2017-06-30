@@ -100,13 +100,14 @@ app.get('/get_walkins_by_jobrole/:jobrole/',function(req, res){
 app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
-          collection.find({Walk_In_date:req.params.Walk_In_date},{"_id":0}).toArray(function(err,data){
+          collection.find({$or: [{"Walk_In_date":{"$gte" : { "$date" :req.params.Walk_In_date }}},{ $and: [{"Walk_In_date.From":{"$gte" : { "$date" :req.params.Walk_In_date }},{"Walk_In_date.To":{"$lte" : { "$date" :req.params.Walk_In_date }}]}]},{"_id":0}).toArray(function(err,data){
               if(err) throw err;
               db.close();
               res.send(data);
           });
     });
 });
+
 
   app.get('/get_walkins_by_Experience/:minExperience/:maxExperience',function(req, res){
       MongoClient.connect(mongosandboxurl,function(err,db){
@@ -122,10 +123,10 @@ app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
 
 
 
-  app.get('/get_walkins_by_Eligibility/:Eligibility/',function(req, res){
+ app.get('/get_walkins_by_Eligibility/:Eligibility/',function(req, res){
       MongoClient.connect(mongosandboxurl,function(err,db){
             var collection = db.collection("walkins");
-            collection.find({Eligibility:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+            collection.find({ $text: { $search: req.params.Eligibility +" any" } },{"_id":0}).toArray(function(err,data){
                 if(err) throw err;
                 db.close();
                 res.send(data);
