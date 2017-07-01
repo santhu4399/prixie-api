@@ -79,7 +79,7 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 
-<<<<<<< HEAD
+
 // app.get('/walkins/:jobrole',function(req, res){
 //    MongoClient.connect(mongosandboxurl,function(err,db){
 //          var collection = db.collection("walkins");
@@ -92,8 +92,8 @@ app.get('/interview_schedule/:index',function(req, res){
 //    });
 // });
 
-app.get('/walkins/:jobrole/',function(req, res){
-=======
+// app.get('/walkins/:jobrole/',function(req, res){
+// =======
 /*app.get('/get_walkins_by_jobrole/:jobrole',function(req, res){
 >>>>>>> bd8fc7afd4cf8fc246cbb2e100dce37a29ba068c
     MongoClient.connect(mongosandboxurl,function(err,db){
