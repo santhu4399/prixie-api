@@ -88,7 +88,7 @@ app.get('/interview_schedule/:index',function(req, res){
 app.get('/get_walkins_by_jobrole/:jobrole/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
-          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+          collection.find({ $text: { $search: req.params.jobrole } },{"_id":0}).toArray(function(err,data){
               if(err) throw err;
               db.close();
               res.send(data);
