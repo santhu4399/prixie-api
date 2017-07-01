@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
 
 app.set('view engine', 'ejs');
 
-app.set('port',process.env.PORT||3000)
+app.set('port',process.env.PORT||4000)
 
 app.get('/',function(req,res){
 res.render('index',{data:"hello"});
