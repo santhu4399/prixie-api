@@ -1,4 +1,7 @@
 var express =require("express");
+
+var ejs = require("ejs");
+
 var mysql=require("mysql");
 var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
@@ -12,10 +15,13 @@ var connection = mysql.createConnection({
     database : 'oxrygs2koq5krweg'
   });
 
+app.set('view engine', 'ejs');
+
 app.set('port',process.env.PORT||3000)
 
 app.get('/',function(req,res){
-  res.send('prixieapi is working');
+res.render('index',{data:"hello"});
+//res.send('prixieapi is working');
 });
 
 app.get('/interview_schedules/:from/:to',function(req, res){
@@ -72,17 +78,17 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 
-//app.get('/walkins/:jobrole',function(req, res){
-  //  MongoClient.connect(mongosandboxurl,function(err,db){
-    //      var collection = db.collection("walkins");
-      //    collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
-        //      if(err) throw err;
-          //    console.log(parseInt(req.params.index)+1);
-            //  db.close();
-              //res.send(data[parseInt(req.params.index)+1]);
+// app.get('/walkins/:jobrole',function(req, res){
+//    MongoClient.connect(mongosandboxurl,function(err,db){
+//          var collection = db.collection("walkins");
+//          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+//              if(err) throw err;
+//              console.log(parseInt(req.params.index)+1);
+//              db.close();
+//               res.send(data[parseInt(req.params.index)+1]);
 //          });
 //    });
-//});
+// });
 
 app.get('/walkins/:jobrole/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
