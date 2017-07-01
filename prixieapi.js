@@ -32,8 +32,7 @@ app.get('/interview_schedules/:from/:to',function(req, res){
               if(err) throw err;
               console.log(data);
               db.close();
-res.render('index',{data:"hello"})
-             // res.send(data.slice(req.params.from,req.params.to));
+              res.send(data.slice(req.params.from,req.params.to));
           });
     });
 });
