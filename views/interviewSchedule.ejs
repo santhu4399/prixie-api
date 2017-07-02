@@ -3,12 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>All Interview Schedules</title>
+    <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
   </head>
   <body>
     <table>
       <thead>
         <tr>
-          <th>Company</th><th>website</th><th>Job Role</th><th>Eligibility</th><th>Experience</th><th>salary</th><th>Job Location</th><th>Walkin Date</th><th>walkin Time</th>
+          <th>Company</th><th>website</th><th>Job Role</th><th>Eligibility</th><th>Experience</th><th>salary</th><th>Job Location</th><th>Walkin Date</th><th>Walkin Time</th>
         </tr>
       </thead>
       <tbody>
@@ -18,11 +35,43 @@
                 <td><a href='<%= data[i].Website %>'><%= data[i].Website %></a></td>
                 <td><%= data[i].Job_Role %></td>
                 <td><%= data[i].Eligibility %></td>
-                <td><%= data[i].Experience %></td>
-                <td><%= data[i].salary %></td>
+                <% function getExp(){
+                  if (data[i].Experience.min && data[i].Experience.max) {
+
+                    return data[i].Experience.min+"-"+data[i].Experience.max+" Years";
+                  }else {
+                   return data[i].Experience.min+" Years";
+                  }
+                }
+                function getSal(){
+                  if (data[i].Salary) {
+                    return data[i].Salary;
+                  }else {
+                    return "Not Mentioned";
+                  }
+                }
+                function getWalkinDate(){
+                  if (data[i].Walk_In_date.From&&data[i].Walk_In_date.To) {
+                    return data[i].Walk_In_date.From+" to "+data[i].Walk_In_date.To;
+                  }else if (data[i].Walk_In_date == "") {
+                    return "ASAP";
+                  }else {
+                    return data[i].Walk_In_date;
+                  }
+                }
+                function getTime(){
+                  if (data[i].Walk_In_Time == "") {
+                    return "9:00AM to 5:00PM"
+                  }
+                  else {
+                    return data[i].Walk_In_Time;
+                  }
+                }%>
+                <td><%= getExp() %></td>
+                <td><%= getSal() %></td>
                 <td><%= data[i].Job_location %></td>
-                <td><%= data[i].Walk_In_date %></td>
-                <td><%= data[i].Walk_In_Time %></td>
+                <td><%= getWalkinDate() %></td>
+                <td><%= getTime() %></td>
               </tr>
             <%}%>
       </tbody>
