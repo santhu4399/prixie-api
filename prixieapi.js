@@ -109,7 +109,6 @@ app.get('/get_walkins_All/:index',function(req, res){
           var collection = db.collection("walkins");
           collection.find({}).toArray(function(err,data){
               if(err) throw err;
-              console.log(data);
               db.close();
               res.send(data[parseInt(req.params.index)]);
           });
