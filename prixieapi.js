@@ -104,14 +104,14 @@ app.get('/interview_schedule/:index',function(req, res){
 */
 
 
-app.get('/get_walkins_All',function(req, res){
+app.get('/get_walkins_All/:index',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
           collection.find({}).toArray(function(err,data){
               if(err) throw err;
               console.log(data);
               db.close();
-              res.send(data);
+              res.send(data[parseInt(req.params.index)]);
           });
     });
 });
