@@ -14,9 +14,7 @@ var connection = mysql.createConnection({
     password : 'g25rk5i0wb7ktspb',
     database : 'oxrygs2koq5krweg'
   });
-
 app.set('view engine', 'ejs');
-
 app.set('port',process.env.PORT||4000)
 
 app.get('/',function(req,res){
@@ -36,9 +34,6 @@ app.get('/interview_schedules/:from/:to',function(req, res){
           });
     });
 });
-
-
-
 
 
 app.get('/tutorials_list',function(req, res){
@@ -107,6 +102,20 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 */
+
+
+app.get('/get_walkins_All',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("walkins");
+          collection.find({}).toArray(function(err,data){
+              if(err) throw err;
+              console.log(data);
+              db.close();
+              res.send(data);
+          });
+    });
+});
+
 
 app.get('/get_walkins_by_jobrole/:jobrole/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
