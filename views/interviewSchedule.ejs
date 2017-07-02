@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>All Interview Schedules</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th><th>website</th><th>Job Role</th><th>Eligibility</th><th>Experience</th><th>salary</th><th>Job Location</th><th>Walkin Date</th><th>walkin Time</th>
+        </tr>
+      </thead>
+      <tbody>
+            <%for(var i=0;i<data.length;i++){%>
+              <tr>
+                <td><%= data[i].company %></td>
+                <td><a href='<%= data[i].Website %>'><%= data[i].Website %></a></td>
+                <td><%= data[i].Job_Role %></td>
+                <td><%= data[i].Eligibility %></td>
+                <td><%= data[i].Experience %></td>
+                <td><%= data[i].salary %></td>
+                <td><%= data[i].Job_location %></td>
+                <td><%= data[i].Walk_In_date %></td>
+                <td><%= data[i].Walk_In_Time %></td>
+              </tr>
+            <%}%>
+      </tbody>
+    </table>
+
+  </body>
+</html>

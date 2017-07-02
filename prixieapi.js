@@ -18,10 +18,23 @@ app.set('view engine', 'ejs');
 app.set('port',process.env.PORT||4000)
 
 app.get('/',function(req,res){
-res.render('index',{data:"hello"});
-
-//res.send('prixieapi is working');
+//res.render('index',{data:"hello"});
+res.send('prixieapi is working');
 });
+
+app.get('/view_All_Interview_Schedules',function(req, res){
+  MongoClient.connect(mongosandboxurl,function(err,db){
+    var collection = db.collection("walkins");
+    collection.find({}).toArray(function(err,data){
+      if(err) throw err;
+      console.log(data);
+      db.close();
+      res.render("interviewSchedule",{data:data});
+    });
+  });
+
+});
+
 
 app.get('/interview_schedules/:from/:to',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
