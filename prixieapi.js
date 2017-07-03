@@ -1,5 +1,4 @@
 var express =require("express");
-
 var ejs = require("ejs");
 
 var mysql=require("mysql");
@@ -32,7 +31,7 @@ app.get('/get_walkins_All/:index',function(req, res){
     });
 });
 
-//all walkins collection documents rendering to ejs
+// view all walkins collection documents rendering to ejs
 app.get('/view_All_Interview_Schedules',function(req, res){
   MongoClient.connect(mongosandboxurl,function(err,db){
     var collection = db.collection("walkins");
@@ -57,7 +56,18 @@ app.get('/get_walkins_by_jobrole/:jobrole/:index',function(req, res){
     });
 });
 
-
+//view all walkins collection documents filtered by Job Role rendering to ejs
+app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
+  MongoClient.connect(mongosandboxurl,function(err,db){
+    var collection = db.collection("walkins");
+    collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+      if(err) throw err;
+      console.log(data);
+      db.close();
+      res.render("interviewSchedule",{data:data});
+    });
+  });
+});
 
 
 
