@@ -60,7 +60,7 @@ app.get('/get_walkins_by_jobrole/:jobrole/:index',function(req, res){
 app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
   MongoClient.connect(mongosandboxurl,function(err,db){
     var collection = db.collection("walkins");
-    collection.find({}).toArray(function(err,data){
+    collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){
       if(err) throw err;
       console.log(data);
       db.close();
