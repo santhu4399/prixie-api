@@ -5,52 +5,47 @@
     <title>All Interview Schedules</title>
 
     <style>
-table {
 
-    font-family: arial, sans-serif;
-    font-size: 35px;
-    border-collapse: collapse;
-    width: 100%;
+    #background-image {
+          font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+          font-size: 12px;
+          width: 480px;
+          text-align: left;
+          border-collapse: collapse;
+          background: url("https://prixie-api.herokuapp.com/images/prixe.jpg") 330px 59px no-repeat;
+          margin: 20px;
+      }
 
-}
+      #background-image th {
+          font-weight: normal;
+          font-size: 14px;
+          color: #339;
+          padding: 12px;
+      }
 
-td, th {
+      #background-image td {
+          color: #669;
+          border-top: 1px solid #fff;
+          padding: 9px 12px;
+      }
 
-    border: 0.1px solid #EE82EE;
-    text-align: left;
-    padding: 0.1px;
-}
+      #background-image tfoot td {
+          font-size: 11px;
+      }
 
+      #background-image tbody td {
+          background: url("https://prixie-api.herokuapp.com/images/back.png");
+      }
 
-tr:nth-child(even) {
-    text-overflow: italic;
-}
+      * html #background-image tbody td {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://prixie-api.herokuapp.com/images/back.png',sizingMethod='crop');
+          background: none;
+      }
 
- tr:hover td {
-  @include text-shadow(none);
-  color:#00BFFF;
-  @include opacity(1.0);
-}
-
-
-
-.scrollMore{
-  margin-top:600px;
-}
-
-.up{
-  cursor:pointer;
-}
-body{
-  background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8)), url("https://prixie-api.herokuapp.com/images/prixe.jpg");
-}
-th{
-
-  background: #00cccc;
-    color: #fff;
-    font-size: 30px;
-    padding-left: 5px;
-}
+      #background-image tbody tr:hover td {
+          color: #339;
+          background: none;
+      }
 
 </style>
   </head>
@@ -87,7 +82,7 @@ th{
         return data[i].Walk_In_Time;
       }
     }%>
-    <table>
+    <table id="background-image">
       <thead>
         <tr>
           <th>Company</th><th>website</th><th>Job Role</th><th>Eligibility</th><th>Experience</th><th>salary</th><th>Job Location</th><th>Walkin Date</th><th>Walkin Time</th>
