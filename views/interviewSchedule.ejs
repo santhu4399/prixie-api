@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>All Interview Schedules</title>
+
+
+
+
+
+
+
+
+
+
+
+
+    <style>
+table {
+    text-overflow: italic;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    text-overflow: italic;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    text-overflow: italic;
+    background-color:#40E0D0;
+}
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+  </head>
+  <body>
+    <% function getExp(){
+      if (data[i].Experience.min && data[i].Experience.max) {
+
+        return data[i].Experience.min+"-"+data[i].Experience.max+" Years";
+      }else {
+       return data[i].Experience.min+" Years";
+      }
+    }
+    function getSal(){
+      if (data[i].Salary) {
+        return data[i].Salary;
+      }else {
+        return "Not Mentioned";
+      }
+    }
+    function getWalkinDate(){
+      if (data[i].Walk_In_date.From&&data[i].Walk_In_date.To) {
+        return data[i].Walk_In_date.From+" to "+data[i].Walk_In_date.To;
+      }else if (data[i].Walk_In_date == "") {
+        return "ASAP";
+      }else {
+        return data[i].Walk_In_date;
+      }
+    }
+    function getTime(){
+      if (data[i].Walk_In_Time == "") {
+        return "9:00AM to 5:00PM"
+      }
+      else {
+        return data[i].Walk_In_Time;
+      }
+    }%>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th><th>website</th><th>Job Role</th><th>Eligibility</th><th>Experience</th><th>salary</th><th>Job Location</th><th>Walkin Date</th><th>Walkin Time</th>
+        </tr>
+      </thead>
+      <tbody>
+            <%for(var i=0;i<data.length;i++){%>
+              <tr>
+                <td><%= data[i].company %></td>
+                <td><a href='<%= data[i].Website %>'><%= data[i].Website %></a></td>
+                <td><%= data[i].Job_Role %></td>
+                <td><%= data[i].Eligibility %></td>
+
+                <td><%= getExp() %></td>
+                <td><%= getSal() %></td>
+                <td><%= data[i].Job_location %></td>
+                <td><%= getWalkinDate() %></td>
+                <td><%= getTime() %></td>
+              </tr>
+            <%}%>
+      </tbody>
+    </table>
+
+  </body>
+</html>

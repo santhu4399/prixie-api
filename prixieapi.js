@@ -1,4 +1,6 @@
 var express =require("express");
+var ejs = require("ejs");
+
 var mysql=require("mysql");
 var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
@@ -11,14 +13,71 @@ var connection = mysql.createConnection({
     password : 'g25rk5i0wb7ktspb',
     database : 'oxrygs2koq5krweg'
   });
-
-app.set('port',process.env.PORT||3000)
-
+app.set('view engine', 'ejs');
+app.set('port',process.env.PORT||4000)
+//for testing purpose
 app.get('/',function(req,res){
-  res.send('prixieapi is working');
+res.send('prixieapi is working');
+});
+//for getting all documents from walkins collection
+app.get('/get_walkins_All/:index',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("walkins");
+          collection.find({}).toArray(function(err,data){
+              if(err) throw err;
+              db.close();
+              res.send(data[parseInt(req.params.index)]);
+          });
+    });
 });
 
+// view all walkins collection documents rendering to ejs
+app.get('/view_All_Interview_Schedules',function(req, res){
+  MongoClient.connect(mongosandboxurl,function(err,db){
+    var collection = db.collection("walkins");
+    collection.find({}).toArray(function(err,data){
+      if(err) throw err;
+      console.log(data);
+      db.close();
+      res.render("interviewSchedule",{data:data});
+    });
+  });
+});
+
+//get walkins filtered by jobrole
+app.get('/get_walkins_by_jobrole/:jobrole/:index',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("walkins");
+          collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){ //{ $text: { $search: req.params.jobrole }}
+              if(err) throw err;
+              db.close();
+              res.send(data[parseInt(req.params.index)]);
+          });
+    });
+});
+
+//view all walkins collection documents filtered by Job Role rendering to ejs
+app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
+  MongoClient.connect(mongosandboxurl,function(err,db){
+    var collection = db.collection("walkins");
+    collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){
+      if(err) throw err;
+      console.log(data);
+      db.close();
+      res.render("interviewSchedule",{data:data});
+    });
+  });
+});
+
+
+<<<<<<< HEAD
+app.get('/tutorials_list',function(req, res){
+=======
+
+
+
 app.get('/interview_schedules/:from/:to',function(req, res){
+>>>>>>> cf12b6fae46a3afc7a22398b33293fe2c12e508c
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("today_walkins");
           collection.find({},{"company":1,"website":1}).toArray(function(err,data){
@@ -31,7 +90,8 @@ app.get('/interview_schedules/:from/:to',function(req, res){
 });
 
 
-
+<<<<<<< HEAD
+=======
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
@@ -45,6 +105,7 @@ app.get('/tutorials_list',function(req, res){
 });
 
 
+>>>>>>> cf12b6fae46a3afc7a22398b33293fe2c12e508c
 app.get('/interview_schedule/:index',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("interview_schedule");
@@ -57,17 +118,41 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 
+<<<<<<< HEAD
+=======
 
-app.get('/get_walkins_by_jobrole/:jobrole/',function(req, res){
+// app.get('/walkins/:jobrole',function(req, res){
+//    MongoClient.connect(mongosandboxurl,function(err,db){
+//          var collection = db.collection("walkins");
+//          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
+//              if(err) throw err;
+//              console.log(parseInt(req.params.index)+1);
+//              db.close();
+//               res.send(data[parseInt(req.params.index)+1]);
+//          });
+//    });
+// });
+
+// app.get('/walkins/:jobrole/',function(req, res){
+// =======
+/*app.get('/get_walkins_by_jobrole/:jobrole',function(req, res){
+>>>>>>> bd8fc7afd4cf8fc246cbb2e100dce37a29ba068c
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
-          collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){ //{ $text: { $search: req.params.jobrole }}
+          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
               if(err) throw err;
+              console.log(parseInt(req.params.index)+1);
               db.close();
-              res.send(data);
+              res.send(data[parseInt(req.params.index)+1]);
           });
     });
 });
+*/
+>>>>>>> cf12b6fae46a3afc7a22398b33293fe2c12e508c
+
+
+
+
 
 
 app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
@@ -85,7 +170,7 @@ app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
 });
 
 
-  app.get('/get_walkins_by_Experience/:minExperience/:maxExperience',function(req, res){
+app.get('/get_walkins_by_Experience/:minExperience/:maxExperience',function(req, res){
       MongoClient.connect(mongosandboxurl,function(err,db){
             var collection = db.collection("walkins");
             //console.log(parseInt(req.params.minExperience));
