@@ -5,6 +5,8 @@ var mysql=require("mysql");
 var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
 var app = express();
+app.use(express.static('public'))
+
 var mongourl = "mongodb://localhost:27017/walkins";
 var mongosandboxurl = "mongodb://prixieapi:prixie1234@ds145359.mlab.com:45359/prixie";
 var connection = mysql.createConnection({
@@ -13,12 +15,15 @@ var connection = mysql.createConnection({
     password : 'g25rk5i0wb7ktspb',
     database : 'oxrygs2koq5krweg'
   });
+
 app.set('view engine', 'ejs');
+
 app.set('port',process.env.PORT||4000)
 //for testing purpose
 app.get('/',function(req,res){
 res.send('prixieapi is working');
 });
+
 //for getting all documents from walkins collection
 app.get('/get_walkins_All/:index',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
@@ -68,15 +73,6 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
     });
   });
 });
-
-
-
-
-
-
-
-
-
 
 app.get('/interview_schedules/:from/:to',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
