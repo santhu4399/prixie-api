@@ -70,10 +70,6 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
 });
 
 
-<<<<<<< HEAD
-app.get('/tutorials_list',function(req, res){
-=======
-
 
 
 app.get('/interview_schedules/:from/:to',function(req, res){
@@ -90,8 +86,7 @@ app.get('/interview_schedules/:from/:to',function(req, res){
 });
 
 
-<<<<<<< HEAD
-=======
+
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
@@ -105,7 +100,7 @@ app.get('/tutorials_list',function(req, res){
 });
 
 
->>>>>>> cf12b6fae46a3afc7a22398b33293fe2c12e508c
+
 app.get('/interview_schedule/:index',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("interview_schedule");
@@ -118,8 +113,7 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 
-<<<<<<< HEAD
-=======
+
 
 // app.get('/walkins/:jobrole',function(req, res){
 //    MongoClient.connect(mongosandboxurl,function(err,db){
@@ -148,12 +142,6 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 */
->>>>>>> cf12b6fae46a3afc7a22398b33293fe2c12e508c
-
-
-
-
-
 
 app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
