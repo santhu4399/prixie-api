@@ -32,8 +32,6 @@ app.get('/interview_schedules/:from/:to',function(req, res){
 
 
 
-
-
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
@@ -47,19 +45,6 @@ app.get('/tutorials_list',function(req, res){
 });
 
 
-/*app.get('/interview_schedules',function(req, res){
-    MongoClient.connect(mongosandboxurl,function(err,db){
-          var collection = db.collection("interview_schedule");
-          collection.find({},{"Company_name":1,"Domain":1,"Technology":1,"Experience":1,"interview_date":1,"location":1,"_id":0}).toArray(function(err,data){
-              if(err) throw err;
-              console.log(data);
-              db.close();
-              res.send(data);
-          });
-    });
-});
-*/
-
 app.get('/interview_schedule/:index',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("interview_schedule");
@@ -72,18 +57,6 @@ app.get('/interview_schedule/:index',function(req, res){
     });
 });
 
-/*app.get('/get_walkins_by_jobrole/:jobrole',function(req, res){
-    MongoClient.connect(mongosandboxurl,function(err,db){
-          var collection = db.collection("walkins");
-          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
-              if(err) throw err;
-              console.log(parseInt(req.params.index)+1);
-              db.close();
-              res.send(data[parseInt(req.params.index)+1]);
-          });
-    });
-});
-*/
 
 app.get('/get_walkins_by_jobrole/:jobrole/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
