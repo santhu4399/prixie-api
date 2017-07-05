@@ -5,6 +5,7 @@ var mysql=require("mysql");
 var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
 var app = express();
+app.locals.dateMath=require("date-arithmetic");
 app.use(express.static('public'))
 
 var mongourl = "mongodb://localhost:27017/walkins";
@@ -69,8 +70,7 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
       if(err) throw err;
       //console.log(data);
       db.close();
-      var dateMath = require('date-arithmetic');
-      res.render("interviewSchedule",{data:data, dateMath:dateMath});
+      res.render("interviewSchedule",{data:data});
     });
   });
 });
