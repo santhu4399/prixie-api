@@ -1,6 +1,6 @@
 var express =require("express");
 var ejs = require("ejs");
-
+var dateMath = require('date-arithmetic');
 var mysql=require("mysql");
 var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
@@ -18,7 +18,6 @@ var connection = mysql.createConnection({
   });
 
 app.set('view engine', 'ejs');
-
 app.set('port',process.env.PORT||4000)
 //for testing purpose
 app.get('/',function(req,res){
@@ -87,7 +86,6 @@ app.get('/interview_schedules/:from/:to',function(req, res){
           });
     });
 });
-
 
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
@@ -312,11 +310,6 @@ app.get('/telephonic',function(req, res){
     res.send("rounds List"+result);
 });
 });
-
-
-
-
-
 
 
 app.get('/it_selection_process',function(req, res){
