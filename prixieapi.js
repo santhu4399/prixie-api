@@ -67,7 +67,7 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
     var collection = db.collection("walkins");
     collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){
       if(err) throw err;
-      console.log(data);
+      //console.log(data);
       db.close();
       var dateMath = require('date-arithmetic');
       res.render("interviewSchedule",{data:data, dateMath:dateMath});
