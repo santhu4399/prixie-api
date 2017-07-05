@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>All Interview Schedules</title>
-
+    <script src="http://momentjs.com/downloads/moment.js"></script>
     <style>
 
     #background-image {
@@ -46,7 +46,7 @@
           color: #339;
           background: none;
       }
-<% var r=/\d{4}-\d{2}-\d{2}/g; %>
+
 </style>
   </head>
   <body>
@@ -99,7 +99,8 @@
                 <td><%= getExp() %></td>
                 <td><%= getSal() %></td>
                 <td><%= data[i].Job_location %></td>
-                <td><%= getWalkinDate() %></td>
+                <td<% if(getWalkinDate() == Date.now().getDate()) {%> class="today" <%}%> >
+                   <%= getWalkinDate() %></td>
                 <td><%= getTime() %></td>
               </tr>
             <%}%>
