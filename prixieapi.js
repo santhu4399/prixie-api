@@ -45,7 +45,8 @@ app.get('/view_All_Interview_Schedules',function(req, res){
       if(err) throw err;
       console.log(data);
       db.close();
-      res.render("interviewSchedule",{data:data});
+      var dateMath = require('date-arithmetic');
+      res.render("interviewSchedule",{data:data, dateMath:dateMath});
     });
   });
 });
