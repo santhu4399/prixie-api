@@ -87,7 +87,7 @@
       }else if (data[i].Walk_In_date == "") {
         return {
                  walkin_date:"ASAP",
-                 class:clasName
+                 class:className
         };
       }else {
         if(dateMath.eq(today,data[i].Walk_In_date))
@@ -96,7 +96,7 @@
         }
         return {
                    walkin_date:data[i].Walk_In_date,
-                   class:clasName
+                   class:className
         };
       }
     }
