@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>All Interview Schedules</title>
-    <script src="http://momentjs.com/downloads/moment.js"></script>
+
     <style>
 
     #background-image {
@@ -50,7 +50,10 @@
 </style>
   </head>
   <body>
-    <% function getExp(){
+    <%
+      var dateMath = require('date-arithmetic');
+      var today = new Date();
+     function getExp(){
       if (data[i].Experience.min && data[i].Experience.max) {
 
         return data[i].Experience.min+"-"+data[i].Experience.max+" Years";
@@ -66,12 +69,35 @@
       }
     }
     function getWalkinDate(){
+      var className = "";
       if (data[i].Walk_In_date.From&&data[i].Walk_In_date.To) {
-        return data[i].Walk_In_date.From+" to "+data[i].Walk_In_date.To;
+
+        var walk_in_date_from =new Date(data[i].Walk_In_date.From);
+        var walk_in_date_to =new Date(data[i].Walk_In_date.To);
+
+        if(dateMath.inRange(today,walk_in_date_from,walk_in_date_to,"day"))
+        {
+          className ="today";
+        }
+        return {
+                 walkin_date:data[i].Walk_In_date.From+" to "+data[i].Walk_In_date.To,
+                 class:className
+        };
+
       }else if (data[i].Walk_In_date == "") {
-        return "ASAP";
+        return {
+                 walkin_date:"ASAP",
+                 class:clasName
+        };
       }else {
-        return data[i].Walk_In_date;
+        if(dateMath.eq(today,data[i].Walk_In_date))
+        {
+          className ="today";
+        }
+        return {
+                   walkin_date:data[i].Walk_In_date,
+                   class:clasName
+        };
       }
     }
     function getTime(){
@@ -90,22 +116,17 @@
       </thead>
       <tbody>
             <%for(var i=0;i<data.length;i++){%>
-              <tr>
-
+              <tr class=<%= getWalkinDate().class%>>
                 <td><a href='<%= data[i].Website %>'><%= data[i].company %></a></td>
                 <td><%= data[i].Job_Role %></td>
                 <td><%= data[i].Eligibility %></td>
-
                 <td><%= getExp() %></td>
-              
                 <td><%= data[i].Job_location %></td>
-                <td>
-                   <%= getWalkinDate() %></td>
+                <td><%= getWalkinDate().walkin_date %></td>
                 <td><%= getTime() %></td>
               </tr>
             <%}%>
       </tbody>
     </table>
-
   </body>
 </html>
