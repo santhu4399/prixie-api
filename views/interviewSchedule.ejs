@@ -47,18 +47,10 @@
           background: none;
       }
 
-      .today {
-           background: #64D5E3;
-      }
-
 </style>
   </head>
   <body>
-    <%
-      var today = new Date();
-      var dateMath = dateMath;
-
-     function getExp(){
+    <% function getExp(){
       if (data[i].Experience.min && data[i].Experience.max) {
 
         return data[i].Experience.min+"-"+data[i].Experience.max+" Years";
@@ -74,35 +66,12 @@
       }
     }
     function getWalkinDate(){
-      var className = "";
       if (data[i].Walk_In_date.From&&data[i].Walk_In_date.To) {
-
-        var walk_in_date_from =new Date(data[i].Walk_In_date.From);
-        var walk_in_date_to =new Date(data[i].Walk_In_date.To);
-
-        if(dateMath.inRange(today,walk_in_date_from,walk_in_date_to,"day"))
-        {
-          className ="today";
-        }
-        return {
-                 walkin_date:data[i].Walk_In_date.From+" to "+data[i].Walk_In_date.To,
-                 class:className
-        };
-
+        return data[i].Walk_In_date.From+" to "+data[i].Walk_In_date.To;
       }else if (data[i].Walk_In_date == "") {
-        return {
-                 walkin_date:"ASAP",
-                 class:className
-        };
+        return "ASAP";
       }else {
-        if(dateMath.eq(today,data[i].Walk_In_date))
-        {
-          className ="today";
-        }
-        return {
-                   walkin_date:data[i].Walk_In_date,
-                   class:className
-        };
+        return data[i].Walk_In_date;
       }
     }
     function getTime(){
@@ -116,22 +85,26 @@
     <table id="background-image">
       <thead>
         <tr>
-          <th>Company</th><th>Job Role</th><th>Eligibility</th><th>Experience</th><th>Job Location</th><th>Walkin Date</th><th>Walkin Time</th>
+          <th>Company</th><th>website</th><th>Job Role</th><th>Eligibility</th><th>Experience</th><th>salary</th><th>Job Location</th><th>Walkin Date</th><th>Walkin Time</th>
         </tr>
       </thead>
       <tbody>
             <%for(var i=0;i<data.length;i++){%>
-              <tr class="<%= getWalkinDate().class%>">
-                <td><a href='<%= data[i].Website %>'><%= data[i].company %></a></td>
+              <tr>
+                <td><%= data[i].company %></td>
+                <td><a href='<%= data[i].Website %>'><%= data[i].Website %></a></td>
                 <td><%= data[i].Job_Role %></td>
                 <td><%= data[i].Eligibility %></td>
+
                 <td><%= getExp() %></td>
+                <td><%= getSal() %></td>
                 <td><%= data[i].Job_location %></td>
-                <td><%= getWalkinDate().walkin_date %></td>
+                <td><% if(getWalkinDate() == date.todaydate) {%> <%} %></td>
                 <td><%= getTime() %></td>
               </tr>
             <%}%>
       </tbody>
     </table>
+
   </body>
 </html>

@@ -1,6 +1,6 @@
 var express =require("express");
 var ejs = require("ejs");
-
+var dateMath = require('date-arithmetic');
 var mysql=require("mysql");
 var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
@@ -18,7 +18,6 @@ var connection = mysql.createConnection({
   });
 
 app.set('view engine', 'ejs');
-
 app.set('port',process.env.PORT||4000)
 //for testing purpose
 app.get('/',function(req,res){
@@ -88,7 +87,6 @@ app.get('/interview_schedules/:from/:to',function(req, res){
     });
 });
 
-
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("tutorials");
@@ -113,40 +111,6 @@ app.get('/interview_schedule/:index',function(req, res){
           });
     });
 });
-
-
-// app.get('/walkins/:jobrole',function(req, res){
-//    MongoClient.connect(mongosandboxurl,function(err,db){
-//          var collection = db.collection("walkins");
-//          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
-//              if(err) throw err;
-//              console.log(parseInt(req.params.index)+1);
-//              db.close();
-//               res.send(data[parseInt(req.params.index)+1]);
-//          });
-//    });
-// });
-
-// app.get('/walkins/:jobrole/',function(req, res){
-// =======
-/*app.get('/get_walkins_by_jobrole/:jobrole',function(req, res){
->>>>>>> bd8fc7afd4cf8fc246cbb2e100dce37a29ba068c
-    MongoClient.connect(mongosandboxurl,function(err,db){
-          var collection = db.collection("walkins");
-          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
-              if(err) throw err;
-              console.log(parseInt(req.params.index)+1);
-              db.close();
-              res.send(data[parseInt(req.params.index)+1]);
-          });
-    });
-});
-*/
-
-
-
-
-
 
 app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
@@ -313,10 +277,16 @@ app.get('/telephonic',function(req, res){
 });
 });
 
-
-
-
-
+app.get('/company_info',function(req, res){
+  connection.connect();
+  connection.query("select company_name,address,contact_number,website,domain,percentage,year_of_passing,round_discription,r.round_name,cr.process_ from company c join company_rounds cr on c.company_id=cr.company_id  join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id", function (error, results, fields) {
+  if (error) throw error;
+  console.log(results);
+  var result = JSON.stringify(results);
+  connection.end();
+    res.send("rounds List"+result);
+});
+});
 
 
 app.get('/it_selection_process',function(req, res){
