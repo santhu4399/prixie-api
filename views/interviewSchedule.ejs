@@ -46,7 +46,7 @@
           color: #339;
           background: none;
       }
-<% var r=/\d{4}-\d{2}-\d{2}/g; %>
+
 </style>
   </head>
   <body>
@@ -99,7 +99,7 @@
                 <td><%= getExp() %></td>
                 <td><%= getSal() %></td>
                 <td><%= data[i].Job_location %></td>
-                <td><%= getWalkinDate() %></td>
+                <td><% if(getWalkinDate() == date.todaydate) {%> <%} %></td>
                 <td><%= getTime() %></td>
               </tr>
             <%}%>
