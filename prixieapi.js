@@ -113,6 +113,19 @@ app.get('/interview_schedule/:index',function(req, res){
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 // app.get('/walkins/:jobrole',function(req, res){
 //    MongoClient.connect(mongosandboxurl,function(err,db){
 //          var collection = db.collection("walkins");
@@ -311,10 +324,16 @@ app.get('/telephonic',function(req, res){
 });
 });
 
-
-
-
-
+app.get('/company_info',function(req, res){
+  connection.connect();
+  connection.query("select company_name,address,contact_number,website,domain,percentage,year_of_passing,round_discription,r.round_name,cr.process_ from company c join company_rounds cr on c.company_id=cr.company_id  join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id", function (error, results, fields) {
+  if (error) throw error;
+  console.log(results);
+  var result = JSON.stringify(results);
+  connection.end();
+    res.send("rounds List"+result);
+});
+});
 
 
 app.get('/it_selection_process',function(req, res){
