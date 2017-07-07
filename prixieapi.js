@@ -117,7 +117,7 @@ app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
           var walkin_date = new Date(req.params.Walk_In_date);
           console.log(walkin_date);
           var collection = db.collection("walkins");
-          collection.find({"Walk_In_date":{"$gte" : walkin_date }},{"_id":0}).toArray(function(err,data){
+          collection.find({"Walk_In_date":{"$gte" : new Date(req.params.Walk_In_date)}},{"_id":0}).toArray(function(err,data){
               if(err) throw err;
               db.close();
               res.send(data);
