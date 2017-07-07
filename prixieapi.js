@@ -141,6 +141,17 @@ app.get('/get_walkins_by_Experience/:minExperience/:maxExperience',function(req,
        });
   });
 
+  app.get('/get_walkins_by_Experience/:minExperience',function(req, res){
+        MongoClient.connect(mongosandboxurl,function(err,db){
+              var collection = db.collection("walkins");
+              //console.log(parseInt(req.params.minExperience));
+              collection.find({"Experience.min":{$gte:req.params.minExperience}},{"_id":0}).toArray(function(err,data){
+                  if(err) throw err;
+                  db.close();
+                  res.send(data);
+              });
+         });
+    });
 
 
  app.get('/get_walkins_by_Eligibility/:Eligibility/',function(req, res){
