@@ -114,7 +114,7 @@ app.get('/interview_schedule/:index',function(req, res){
 
 app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
-          var walkin_date = new ISODate(req.params.Walk_In_date);
+          var walkin_date = new Date(req.params.Walk_In_date);
           console.log(walkin_date);
           var collection = db.collection("walkins");
           collection.find({$or: [{"Walk_In_date":{"$gte" : { "$date" :walkin_date }}},
