@@ -75,6 +75,18 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
   });
 });
 
+app.get('/view_All_Interview_Schedules_By_Exp_Freshers',function(req, res){
+  MongoClient.connect(mongosandboxurl,function(err,db){
+    var collection = db.collection("walkins");
+    collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){
+      if(err) throw err;
+      //console.log(data);
+      db.close();
+      res.render("interviewSchedule",{data:data});
+    });
+  });
+});
+
 
 
 
@@ -140,29 +152,19 @@ app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
 });
 
 
-app.get('/get_walkins_by_Experience/:minExperience/:maxExperience',function(req, res){
+app.get('/get_walkins_by_Experience/:minExperience/:maxExperience/:index',function(req, res){
       MongoClient.connect(mongosandboxurl,function(err,db){
             var collection = db.collection("walkins");
             //console.log(parseInt(req.params.minExperience));
             collection.find({ $and: [{"Experience.min":{$gte:req.params.minExperience}},{"Experience.max":{$lte:req.params.maxExperience}}]},{"_id":0}).toArray(function(err,data){
                 if(err) throw err;
                 db.close();
-                res.send(data);
+                res.send(data[parseInt(req.params.index)]);
             });
        });
   });
 
-  app.get('/get_walkins_by_Experience/:minExperience',function(req, res){
-        MongoClient.connect(mongosandboxurl,function(err,db){
-              var collection = db.collection("walkins");
-              //console.log(parseInt(req.params.minExperience));
-              collection.find({"Experience.min":{$gte:req.params.minExperience}},{"_id":0}).toArray(function(err,data){
-                  if(err) throw err;
-                  db.close();
-                  res.send(data);
-              });
-         });
-  });
+
 
   app.get('/get_walkins_by_ExperienceIndex/:minExperience/:index',function(req, res){
         MongoClient.connect(mongosandboxurl,function(err,db){
