@@ -1,10 +1,13 @@
 var express =require("express");
 var ejs = require("ejs");
-
+var dateMath = require('date-arithmetic');
 var mysql=require("mysql");
 var request=require("request");
 var MongoClient = require("mongodb").MongoClient;
 var app = express();
+app.locals.dateMath=require("date-arithmetic");
+app.use(express.static('public'))
+
 var mongourl = "mongodb://localhost:27017/walkins";
 var mongosandboxurl = "mongodb://prixieapi:prixie1234@ds145359.mlab.com:45359/prixie";
 var connection = mysql.createConnection({
@@ -13,12 +16,14 @@ var connection = mysql.createConnection({
     password : 'g25rk5i0wb7ktspb',
     database : 'oxrygs2koq5krweg'
   });
+
 app.set('view engine', 'ejs');
 app.set('port',process.env.PORT||4000)
 //for testing purpose
 app.get('/',function(req,res){
 res.send('prixieapi is working');
 });
+
 //for getting all documents from walkins collection
 app.get('/get_walkins_All/:index',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
@@ -39,7 +44,8 @@ app.get('/view_All_Interview_Schedules',function(req, res){
       if(err) throw err;
       console.log(data);
       db.close();
-      res.render("interviewSchedule",{data:data});
+      var dateMath = require('date-arithmetic');
+      res.render("interviewSchedule",{data:data, dateMath:dateMath});
     });
   });
 });
@@ -62,13 +68,14 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
     var collection = db.collection("walkins");
     collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){
       if(err) throw err;
-      console.log(data);
+      //console.log(data);
       db.close();
       res.render("interviewSchedule",{data:data});
     });
   });
 });
 
+<<<<<<< HEAD
 
 
 
@@ -78,6 +85,8 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
 
 
 
+=======
+>>>>>>> 432902eb03dabb6e1d91fef5642322d49e8deb30
 app.get('/interview_schedules/:from/:to',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("today_walkins");
@@ -89,7 +98,6 @@ app.get('/interview_schedules/:from/:to',function(req, res){
           });
     });
 });
-
 
 app.get('/tutorials_list',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
@@ -117,51 +125,18 @@ app.get('/interview_schedule/:index',function(req, res){
 });
 
 
-// app.get('/walkins/:jobrole',function(req, res){
-//    MongoClient.connect(mongosandboxurl,function(err,db){
-//          var collection = db.collection("walkins");
-//          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
-//              if(err) throw err;
-//              console.log(parseInt(req.params.index)+1);
-//              db.close();
-//               res.send(data[parseInt(req.params.index)+1]);
-//          });
-//    });
-// });
-
-// app.get('/walkins/:jobrole/',function(req, res){
-// =======
-/*app.get('/get_walkins_by_jobrole/:jobrole',function(req, res){
->>>>>>> bd8fc7afd4cf8fc246cbb2e100dce37a29ba068c
-    MongoClient.connect(mongosandboxurl,function(err,db){
-          var collection = db.collection("walkins");
-          collection.find({Job_Role:req.params.jobrole},{"_id":0}).toArray(function(err,data){
-              if(err) throw err;
-              console.log(parseInt(req.params.index)+1);
-              db.close();
-              res.send(data[parseInt(req.params.index)+1]);
-          });
-    });
-});
-*/
-
-
-
-
-
-
 app.get('/get_walkins_by_Walk_In_date/:Walk_In_date/',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
+          var walkin_date = new Date(req.params.Walk_In_date);
+          console.log(walkin_date);
           var collection = db.collection("walkins");
-          collection.find({$or: [{"Walk_In_date":{"$gte" : { "$date" :req.params.Walk_In_date }}},
-                           { $and: [{"Walk_In_date.From":{"$gte" : { "$date" :req.params.Walk_In_date }}},
-                             {"Walk_In_date.To":{"$lte" : { "$date" :req.params.Walk_In_date }}}]}]}
-                               ,{"_id":0}).toArray(function(err,data){
+          collection.find({"Walk_In_date":{$gte: walkin_date}},
+                              {"_id":0}).toArray(function(err,data){
               if(err) throw err;
               db.close();
               res.send(data);
           });
-    });
+     });
 });
 
 
@@ -177,6 +152,29 @@ app.get('/get_walkins_by_Experience/:minExperience/:maxExperience',function(req,
        });
   });
 
+  app.get('/get_walkins_by_Experience/:minExperience',function(req, res){
+        MongoClient.connect(mongosandboxurl,function(err,db){
+              var collection = db.collection("walkins");
+              //console.log(parseInt(req.params.minExperience));
+              collection.find({"Experience.min":{$gte:req.params.minExperience}},{"_id":0}).toArray(function(err,data){
+                  if(err) throw err;
+                  db.close();
+                  res.send(data);
+              });
+         });
+  });
+
+  app.get('/get_walkins_by_Experience/:minExperience/:index',function(req, res){
+        MongoClient.connect(mongosandboxurl,function(err,db){
+              var collection = db.collection("walkins");
+              //console.log(parseInt(req.params.minExperience));
+              collection.find({"Experience.min":{$gte:req.params.minExperience}},{"_id":0}).toArray(function(err,data){
+                  if(err) throw err;
+                  db.close();
+                  res.send(data[parseInt(req.params.index)]);
+              });
+         });
+  });
 
 
  app.get('/get_walkins_by_Eligibility/:Eligibility/',function(req, res){
@@ -248,6 +246,7 @@ app.get('/group_discussion',function(req, res){
     res.send("rounds List"+result);
 });
 });
+
 app.get('/vercent_round',function(req, res){
   connection.connect();
   connection.query("select round_discription from rounds where round_name='VERCENT ROUND'", function (error, results, fields) {
@@ -315,10 +314,16 @@ app.get('/telephonic',function(req, res){
 });
 });
 
-
-
-
-
+app.get('/company_info',function(req, res){
+  connection.connect();
+  connection.query("select company_name,address,contact_number,website,domain,percentage,year_of_passing,round_discription,r.round_name,cr.process_ from company c join company_rounds cr on c.company_id=cr.company_id  join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id", function (error, results, fields) {
+  if (error) throw error;
+  console.log(results);
+  var result = JSON.stringify(results);
+  connection.end();
+    res.send(result);
+});
+});
 
 
 app.get('/it_selection_process',function(req, res){
