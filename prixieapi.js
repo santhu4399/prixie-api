@@ -75,7 +75,6 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
   });
 });
 
-<<<<<<< HEAD
 
 
 
@@ -85,8 +84,9 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
 
 
 
-=======
->>>>>>> 432902eb03dabb6e1d91fef5642322d49e8deb30
+
+
+// 432902eb03dabb6e1d91fef5642322d49e8deb30
 app.get('/interview_schedules/:from/:to',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("today_walkins");
