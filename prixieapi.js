@@ -75,6 +75,18 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
   });
 });
 
+//get walkins filtered by jobrole and subject
+app.get('/get_walkins_by_jobrole_subject/:jobrole/:subject/:index',function(req, res){
+    MongoClient.connect(mongosandboxurl,function(err,db){
+          var collection = db.collection("walkins");
+          collection.find({ Job_Role: {'$regex': req.params.jobrole ,$options: 'i'}},{"_id":0}).toArray(function(err,data){ //{ $text: { $search: req.params.jobrole }}
+              if(err) throw err;
+              db.close();
+              res.send(data[parseInt(req.params.index)]);
+          });
+    });
+});
+
 app.get('/view_All_Interview_Schedules_By_Exp_Freshers',function(req, res){
   MongoClient.connect(mongosandboxurl,function(err,db){
     var collection = db.collection("walkins");
@@ -98,7 +110,6 @@ app.get('/view_All_Interview_Schedules_By_Exp_Freshers',function(req, res){
 
 
 
-// 432902eb03dabb6e1d91fef5642322d49e8deb30
 app.get('/interview_schedules/:from/:to',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("today_walkins");
