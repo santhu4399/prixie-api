@@ -180,7 +180,7 @@ app.get('/get_walkins_by_Experience/:minExperience/:maxExperience/:index',functi
         MongoClient.connect(mongosandboxurl,function(err,db){
               var collection = db.collection("walkins");
               //console.log(parseInt(req.params.minExperience));
-              collection.find({"Experience.min":{$gte:req.params.minExperience}},{"_id":0}).toArray(function(err,data){
+              collection.find({"Experience.min":{$lte:req.params.minExperience}},{"_id":0}).toArray(function(err,data){
                   if(err) throw err;
                   db.close();
                   res.send(data[parseInt(req.params.index)]);
