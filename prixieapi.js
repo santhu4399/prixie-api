@@ -353,7 +353,7 @@ app.get("/view_all_companies_info",function(req,res){
       if (error) throw error;
       console.log(results);
       connection.release;
-      res.render('companies',{results:results});
+      res.render('companies',{data:results});
     });
 })
 
