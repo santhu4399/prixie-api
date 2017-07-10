@@ -3,8 +3,72 @@
   <head>
     <meta charset="utf-8">
     <title>View all Companies Information</title>
+    <style>
+    #background-image {
+          font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+          font-size: 35px;
+          width: 480px;
+          text-align: left;
+          border-collapse: collapse;
+          background:linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8)), url("https://prixie-api.herokuapp.com/images/prixe.jpg");
+          margin: 20px;
+      }
+
+      #background-image th {
+          font-weight: normal;
+          font-size:30px;
+          color: #339;
+          padding: 12px;
+      }
+
+      #background-image td {
+          color: #669;
+          border-top: 1px solid #ffff;
+          padding: 9px;
+      }
+
+      #background-image tfoot td {
+          font-size: 11px;
+      }
+
+      #background-image tbody td {
+          background: url("https://prixie-api.herokuapp.com/images/back.png");
+      }
+
+      * html #background-image tbody td {
+          filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://prixie-api.herokuapp.com/images/back.png',sizingMethod='crop');
+          background: none;
+      }
+
+      #background-image tbody tr:hover td {
+          color: #339;
+          background: none;
+      }
+
+      .today {
+           background: #64D5E3;
+      }
+
+</style>
   </head>
-  <body><%=data%>
+  <body>
+    <table id="background-image">
+      <thead>
+        <tr>
+          <th>Company Name</th><th>Address</th><th>Contact Number</th><th>website</th>
+        </tr>
+      </thead>
+      <tbody>
+            <%for(var i=0;i<data.length;i++){%>
+              <tr>
+                <td><%= data[i].company %></td>
+                <td><%= data[i].address %></td>
+                <td><%= data[i].contact_number %></td>
+                <td><a href='<%= data[i].website %>'><%= data[i].company %></a></td>                
+              </tr>
+            <%}%>
+      </tbody>
+    </table>
 
   </body>
 </html>
