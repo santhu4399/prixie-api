@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
     user     : 'jvipnbry05r7jsdd',
     password : 'g25rk5i0wb7ktspb',
     database : 'oxrygs2koq5krweg'
-  });
+  }).connect();
 
 app.set('view engine', 'ejs');
 app.set('port',process.env.PORT||4000)
@@ -342,7 +342,7 @@ app.get('/company_info/:index',function(req, res){
   connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
   if (error) throw error;
   console.log(results);
-//  connection.end();
+  connection.end();
     res.send(results[parseInt(req.params.index)]);
 });
 });
