@@ -336,7 +336,7 @@ app.get('/company_info',function(req, res){
     res.send(result);
 });
 });
-
+//get company infomation based on given index
 app.get('/company_info/:index',function(req, res){
   //connection.connect();
   connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
@@ -346,6 +346,16 @@ app.get('/company_info/:index',function(req, res){
     res.send(results[parseInt(req.params.index)]);
       });
 });
+
+//view all companies information renderd to ejs file
+app.get("/view_all_companiew_info",function(){
+  connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
+      if (error) throw error;
+      console.log(results);
+      connection.release;
+      res.render('companies',{data:results});
+    });
+})
 
 app.get('/it_selection_process',function(req, res){
   res.send("selection procedure for IT recruitment");
