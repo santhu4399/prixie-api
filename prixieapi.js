@@ -344,7 +344,7 @@ app.get('/company_info/:index',function(req, res){
   console.log(results);
   var result = JSON.stringify(results);
   connection.end();
-    res.send(result);
+    res.send(result[parseInt(req.params.index)]);
 });
 });
 
