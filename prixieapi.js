@@ -338,14 +338,15 @@ app.get('/company_info',function(req, res){
 });
 
 app.get('/company_info/:index',function(req, res){
-  connection.connect(function(){
+  connection.connect(function(error){
+    if(error) throw error;
   connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
   if (error) throw error;
   console.log(results);
-  connection.end();
+  connection.release();
     res.send(results[parseInt(req.params.index)]);
-});
-});
+      });
+    });
 });
 
 app.get('/it_selection_process',function(req, res){
