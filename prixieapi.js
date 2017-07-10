@@ -79,7 +79,7 @@ app.get('/view_All_Interview_Schedules_By_Job_Role/:jobrole',function(req, res){
 app.get('/get_walkins_by_jobrole_subject/:jobrole/:subject/:index',function(req, res){
     MongoClient.connect(mongosandboxurl,function(err,db){
           var collection = db.collection("walkins");
-          collection.find({ Job_Role:{ $elemMatch:{'$regex': req.params.jobrole ,$options: 'i','$regex':req.params.subject ,$options: 'i'}}},{"_id":0}).toArray(function(err,data){
+          collection.find({ Job_Role:{ $elemMatch:{{'$regex': req.params.jobrole ,$options: 'i'},{'$regex':req.params.subject ,$options: 'i'}}}},{"_id":0}).toArray(function(err,data){
               if(err) throw err;
               db.close();
               res.send(data[parseInt(req.params.index)]);
