@@ -348,12 +348,12 @@ app.get('/company_info/:index',function(req, res){
 });
 
 //view all companies information renderd to ejs file
-app.get("/view_all_companiew_info",function(){
+app.get("/view_all_companies_info",function(req,res){
   connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
       if (error) throw error;
       console.log(results);
       connection.release;
-      res.render('companies',{data:results});
+      res.render('companies',{results:results});
     });
 })
 
