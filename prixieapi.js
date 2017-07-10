@@ -327,17 +327,16 @@ app.get('/telephonic',function(req, res){
 });
 
 app.get('/company_info',function(req, res){
-  //connection.connect();
   connection.query("select company_name,address,contact_number,website,domain,percentage,year_of_passing,round_discription,r.round_name,cr.process_ from company c join company_rounds cr on c.company_id=cr.company_id  join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id", function (error, results, fields) {
   if (error) throw error;
   console.log(results);
   connection.release;
-    res.send(result);
+    res.send(results);
 });
 });
+
 //get company infomation based on given index
 app.get('/company_info/:index',function(req, res){
-  //connection.connect();
   connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
   if (error) throw error;
   console.log(results);
@@ -354,7 +353,7 @@ app.get("/view_all_companies_info",function(req,res){
       connection.release;
       res.render('companies',{data:results});
     });
-})
+});
 
 app.get('/it_selection_process',function(req, res){
   res.send("selection procedure for IT recruitment");
