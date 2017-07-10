@@ -342,7 +342,7 @@ app.get('/company_info/:index',function(req, res){
   connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
   if (error) throw error;
   console.log(results);
-  var result = JSON.stringify(results);
+//  var result = JSON.stringify(results);
   connection.end();
     res.send(result[parseInt(req.params.index)]);
 });
