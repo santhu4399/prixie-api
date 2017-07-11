@@ -16,12 +16,12 @@
       </tr>
 
 
-        <% for(var i=0;i<it.length;i++){%>
+        <% for(var i=0;i<it.length;i++){ %>
         <tr>
-          <td><%=it[i].round_name%></td><td><%=it[i].round_discription%></td>
+          <td><%= it[i].round_name %></td><td><%= it[i].round_discription %></td>
         </tr>
-        <%}>
-      
+        <%}%>
+
     </table><br><br>
 
     <table>
@@ -32,9 +32,9 @@
       </tr>
         <% for(var i=0;i<nonit.length;i++){%>
         <tr>
-          <td><%=nonit[i].round_name%></td><td><%=nonit[i].round_discription%></td>
+          <td><% =nonit[i].round_name %></td><td><%= nonit[i].round_discription %></td>
         </tr>
-        <%}>
+        <%}%>
     </table>
   </body>
 </html>
