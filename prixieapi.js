@@ -363,8 +363,8 @@ app.get("/view_selection_process/:domain",function(req,res){
       if(error) throw error;
       console.log(results);
       connection.release;
-      res.send(results[1]);
-      //res.render('selectionProcess',{data:results});
+      //res.send(results[1].domain);
+      res.render('ITandNONITselectionProcess',{data:results});
     });
 });
 
