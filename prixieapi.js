@@ -363,18 +363,29 @@ app.get("/view_selection_process/:domain",function(req,res){
       if(error) throw error;
       console.log(results);
       connection.release;
-      var it = [];
-      var nonit = [];
       //res.send(results[1].domain);
-      for (var i = 0; i < results.length; i++) {
-        if (results[i].domain == "IT") {
-          it.push(results[i]);
+      if (results[1].domain == "IT") {
+        var it = [];
+        var nonit = [];
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].domain == "IT") {
+            it.push(results[i]);
+          }
+          else if (results[i].domain == "NON-IT") {
+            nonit.push(results[i]);
+          }
         }
-        else if (results[i].domain == "NON-IT") {
-          nonit.push(results[i]);
-        }
+        res.render('ITandNONITselectionProcess',{it:it,nonit:nonit});
       }
-      res.render('ITandNONITselectionProcess',{it:it,nonit:nonit});
+      else {
+        var nonit = [];
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].domain == "NON-IT") {
+            nonit.push(results[i]);
+          }
+        }
+        res.render('ITandNONITselectionProcess',{nonit:nonit});
+      }
     });
 });
 
