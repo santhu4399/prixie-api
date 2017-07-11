@@ -337,7 +337,7 @@ app.get('/company_info',function(req, res){
 
 //get company infomation based on given index
 app.get('/company_info/:index',function(req, res){
-  connection.query("select company_name,address,contact_number,website from company", function (error, results, fields) {
+  connection.query("select company_name,address,contact_number,website,domain_code from company", function (error, results, fields) {
   if (error) throw error;
   console.log(results);
   connection.release;
@@ -354,6 +354,17 @@ app.get("/view_all_companies_info",function(req,res){
       res.render('companies',{data:results});
     });
 });
+
+//view company selection process
+app.get("/view_selection_process/",function(req,res){
+    connection.query("",function(error, results, fields){
+      if(error) throw error;
+      console.log(results);
+      connection.release;
+      res.render('selectionProcess',{data:results});
+    });
+});
+
 
 app.get('/it_selection_process',function(req, res){
   res.send("selection procedure for IT recruitment");
