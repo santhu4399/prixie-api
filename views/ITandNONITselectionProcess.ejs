@@ -8,37 +8,33 @@
   </head>
   <body>
     <table>
-      <thead>
+
       <tr>
         <th>
           IT selection Criteria
         </th>
       </tr>
-      </thead>
-      <tbody>
+
+
         <% for(var i=0;i<it.length;i++){%>
         <tr>
           <td><%=it[i].round_name%></td><td><%=it[i].round_discription%></td>
         </tr>
         <%}>
-      </tbody>
+      
     </table><br><br>
 
     <table>
-      <thead>
       <tr>
         <th>
           NON-IT selection Criteria
         </th>
       </tr>
-      </thead>
-      <tbody>
         <% for(var i=0;i<nonit.length;i++){%>
         <tr>
           <td><%=nonit[i].round_name%></td><td><%=nonit[i].round_discription%></td>
         </tr>
         <%}>
-      </tbody>
     </table>
   </body>
 </html>
