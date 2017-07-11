@@ -384,7 +384,7 @@ app.get("/view_selection_process/:domain",function(req,res){
             nonit.push(results[i]);
           }
         }
-        res.render('ITandNONITselectionProcess',{nonit:nonit});
+        res.render('NONITselectionProcess',{nonit:nonit});
       }
     });
 });
