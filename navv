@@ -1,0 +1,47 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/css/bootstrap.min.css" />
+<div id="main" class="container">
+  <h1 class="text-center">pure CSS albums gallery</h1>
+  <div id="gallery" class="row">
+    <div class="col-xs-4 gallery-item">
+      <div class="album">
+        <img src="http://lorempixel.com/400/400/sports/" alt="" />
+        <img src="http://lorempixel.com/400/400/nature/" alt="" />
+        <img src="http://lorempixel.com/400/400/animals/" alt="" />
+      </div>
+      <p>Holidays</p>
+    </div>
+    <div class="col-xs-4 gallery-item">
+      <div class="album">
+        <img src="http://lorempixel.com/400/400/city/" alt="" />
+        <img src="http://lorempixel.com/400/400/fashion/" alt="" />
+        <img src="http://lorempixel.com/400/400/people/" alt="" />
+      </div>
+      <p>Travels</p>
+    </div>
+    <div class="col-xs-4 gallery-item">
+      <div class="album">
+        <img src="http://lorempixel.com/400/400/business/" alt="" />
+        <img src="http://lorempixel.com/400/400/food/" alt="" />
+        <img src="http://lorempixel.com/400/400/transport/" alt="" />
+      </div>
+       <p>Working !</p>
+    </div>
+    <div class="col-xs-4 gallery-item">
+      <div class="album">
+        <img src="http://lorempixel.com/400/400/nightlife/" alt="" />
+        <img src="http://lorempixel.com/400/400/technics/" alt="" />
+        <img src="http://lorempixel.com/400/400/abstract/" alt="" />
+      </div>
+      <p>2012 - 2013</p>
+    </div>
+    <div class="col-xs-4 gallery-item">
+      <div class="album">
+        <img src="http://lorempixel.com/400/400/food/" alt="" />
+        <img src="http://lorempixel.com/400/400/animals/" alt="" />
+        <img src="http://lorempixel.com/400/400/cats/" alt="" />
+      </div>
+      <p>Stuff</p>
+    </div>
+  </div>
+</div>

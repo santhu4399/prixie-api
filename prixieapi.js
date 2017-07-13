@@ -356,26 +356,60 @@ app.get("/view_all_companies_info",function(req,res){
 });
 
 //view company selection process
+// app.get("/view_selection_process/:domain",function(req,res){
+//     //connection.query("select  DISTINCT percentage,year_of_passing,round_discription,r.round_name,cr.process_ from company c join company_rounds cr on c.company_id=cr.company_id join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id where c.domain_code ="+req.params.domain,function(error, results, fields){
+//     connection.query("select  DISTINCT round_discription,r.round_name,cr.domain from company c join company_rounds cr on c.company_id=cr.company_id join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id where c.domain_code ="+req.params.domain+" order by domain",function(error, results, fields){
+//       if(error) throw error;
+//       console.log(results);
+//       connection.release;
+//       //res.send(results[1].domain);
+//       if (results[1].domain == "IT") {
+//         var it = [];
+//         var nonit = [];
+//         for (var i = 0; i < results.length; i++) {
+//           if (results[i].domain == "IT") {
+//             it.push(results[i]);
+//           }
+//           else if (results[i].domain == "NON-IT") {
+//             nonit.push(results[i]);
+//           }
+//         }
+//         res.render('ITandNONITselectionProcess',{it:it,nonit:nonit});
+//       }
+//       else {
+//         var nonit = [];
+//         for (var i = 0; i < results.length; i++) {
+//           if (results[i].domain == "NON-IT") {
+//             nonit.push(results[i]);
+//           }
+//         }
+//         res.render('NONITselectionProcess',{nonit:nonit});
+//       }
+//     });
+// });
+
+
 app.get("/view_selection_process/:domain",function(req,res){
     //connection.query("select  DISTINCT percentage,year_of_passing,round_discription,r.round_name,cr.process_ from company c join company_rounds cr on c.company_id=cr.company_id join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id where c.domain_code ="+req.params.domain,function(error, results, fields){
-    connection.query("select  DISTINCT round_discription,r.round_name,cr.domain from company c join company_rounds cr on c.company_id=cr.company_id join mapping_rounds mr ON mr.company_round_id= cr.company_round_id join rounds r ON r.round_id=mr.round_id where c.domain_code ="+req.params.domain+" order by domain",function(error, results, fields){
-      if(error) throw error;
+    connection.query("select * from IT",function(error, results, fields){
       if(error) throw error;
       console.log(results);
       connection.release;
       //res.send(results[1].domain);
-      if (results[1].domain == "IT") {
-        var it = [];
-        var nonit = [];
-        for (var i = 0; i < results.length; i++) {
-          if (results[i].domain == "IT") {
-            it.push(results[i]);
+      if (req.params.domain == 1) {
+          if (results[1].domain == "IT") {
+            var it = [];
+            var nonit = [];
+            for (var i = 0; i < results.length; i++) {
+              if (results[i].domain == "IT") {
+                it.push(results[i]);
+              }
+              else if (results[i].domain == "NON-IT") {
+                nonit.push(results[i]);
+              }
+            }
+            res.render('ITandNONITselectionProcess',{it:it,nonit:nonit});
           }
-          else if (results[i].domain == "NON-IT") {
-            nonit.push(results[i]);
-          }
-        }
-        res.render('ITandNONITselectionProcess',{it:it,nonit:nonit});
       }
       else {
         var nonit = [];
@@ -388,7 +422,6 @@ app.get("/view_selection_process/:domain",function(req,res){
       }
     });
 });
-
 
 app.get('/it_selection_process',function(req, res){
   res.send("selection procedure for IT recruitment");
